@@ -97,19 +97,6 @@
             white-space: pre-wrap; /* Mantém as quebras de linha */
             text-align: left;
         }
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff8a80;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 1rem auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
         /* Classe para elementos a serem animados pela rolagem */
         .reveal {
             visibility: hidden;
@@ -176,12 +163,11 @@
             <p>E vimos <span id="full-moons" class="stat-number">0</span> luas cheias iluminarem o nosso amor.</p>
         </div>
 
-        <!-- Inspiração Poética (Gemini API) -->
+        <!-- Inspiração Poética (CORRIGIDO) -->
         <div class="container-box reveal">
             <h3 class="font-dancing text-3xl mb-3 romantic-red">Inspiração Poética</h3>
             <p class="mb-4">Clique no botão abaixo para que a nossa história inspire um poema de amor único, criado especialmente para nós.</p>
             <button id="generate-poem-btn" class="action-button font-bold py-2 px-6 rounded-lg">✨ Gerar Poema de Amor</button>
-            <div id="poem-loader" class="loader" style="display: none;"></div>
             <div id="poem-display" class="mt-4" style="display: none;"></div>
         </div>
 
@@ -253,8 +239,8 @@
             autoSlideInterval = setInterval(nextSlide, 5000);
         }
 
-        showSlide(0); // Inicia no primeiro slide
-        resetAutoSlide(); // Inicia o timer automático
+        showSlide(0);
+        resetAutoSlide();
 
         // --- LÓGICA DE DESLIZE (SWIPE) ---
         let touchStartX = 0;
@@ -270,7 +256,7 @@
         });
 
         function handleSwipe() {
-            const swipeThreshold = 50; // Distância mínima para considerar um deslize
+            const swipeThreshold = 50;
             if (touchEndX < touchStartX - swipeThreshold) {
                 nextSlide();
                 resetAutoSlide();
@@ -342,11 +328,17 @@
         saveBtn.addEventListener('click',()=>{const message=messageBox.value.trim();if(message!==''){localStorage.setItem(MESSAGE_STORAGE_KEY,message);confirmationMsg.style.display='block';displaySavedMessage();setTimeout(()=>{confirmationMsg.style.display='none';},5000);}});
         displaySavedMessage();
 
-        // --- LÓGICA DA API GEMINI ---
+        // --- LÓGICA DO POEMA (CORRIGIDO) ---
         const generatePoemBtn = document.getElementById('generate-poem-btn');
-        const poemLoader = document.getElementById('poem-loader');
         const poemDisplay = document.getElementById('poem-display');
-        generatePoemBtn.addEventListener('click',async()=>{generatePoemBtn.disabled=true;poemLoader.style.display='block';poemDisplay.style.display='none';const timeTogether=document.getElementById('timer').textContent.replace(/\s+/g,' ').trim();const prompt=`Crie um poema de amor curto e romântico para um casal chamado Mariana e Nycolas. O relacionamento deles começou em 14 de maio de 2025. Eles estão juntos há ${timeTogether}. Mencione a jornada deles, o amor que cresce a cada segundo e o futuro brilhante que os espera. O poema deve ser emotivo e tocante, em português do Brasil.`;let chatHistory=[];chatHistory.push({role:"user",parts:[{text:prompt}]});const payload={contents:chatHistory};const apiKey="";const apiUrl=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;try{const response=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(result.candidates&&result.candidates.length>0&&result.candidates[0].content&&result.candidates[0].content.parts&&result.candidates[0].content.parts.length>0){const poemText=result.candidates[0].content.parts[0].text;poemDisplay.textContent=poemText;poemDisplay.style.display='block';}else{poemDisplay.textContent='Não foi possível gerar o poema neste momento. Por favor, tente novamente mais tarde.';poemDisplay.style.display='block';}}catch(error){console.error("Error calling Gemini API:",error);poemDisplay.textContent='Ocorreu um erro ao conectar com a inspiração. Tente novamente.';poemDisplay.style.display='block';}finally{poemLoader.style.display='none';generatePoemBtn.disabled=false;}});
+
+        generatePoemBtn.addEventListener('click', () => {
+            const poem = `Para Mariana e Nycolas,\n\nNo calendário, um dia marcou,\nOnde o tempo para vocês começou.\nA cada segundo, um novo passo,\nConstruindo juntos um eterno laço.\n\nSob o mesmo sol, tantos amanheceres,\nTestemunhas de um amor que só faz crescer.\nQue a vossa jornada, em estrelas traçada,\nSeja para sempre, abençoada.`;
+            
+            poemDisplay.textContent = poem;
+            poemDisplay.style.display = 'block';
+            generatePoemBtn.disabled = true; // Desativa o botão depois de usar
+        });
 
         // --- LÓGICA DA ANIMAÇÃO DE ROLAGEM ---
         ScrollReveal().reveal('.reveal', {
