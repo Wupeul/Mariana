@@ -1,1 +1,318 @@
-<h1>Oi, GitHub Pages</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para a Minha Amada Mariana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: #fce4ec; /* Rosinha bem claro */
+        }
+        .font-dancing {
+            font-family: 'Dancing Script', cursive;
+        }
+        .romantic-red {
+            color: #ff8a80; /* Vermelho/rosa carinho */
+        }
+        .container-box {
+            background-color: rgba(40, 40, 40, 0.5);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid #ff8a80;
+        }
+        .slide { display: none; }
+        .slide img { width: 100%; height: 400px; object-fit: cover; vertical-align: middle; }
+        .dots-container { text-align: center; padding: 10px; margin-top: 8px; }
+        .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #4d4d4d; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
+        .active-dot, .dot:hover { background-color: #ff8a80; }
+        .timer-box { background-color: rgba(255, 138, 128, 0.1); border: 1px solid rgba(255, 138, 128, 0.3); border-radius: 12px; padding: 1rem 1.5rem; text-align: center; backdrop-filter: blur(5px); }
+        .timer-unit { font-size: 0.8rem; color: #f8bbd0; }
+        .stat-number {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+        textarea {
+            background-color: rgba(0,0,0,0.3);
+            border: 1px solid #ff8a80;
+            color: #fce4ec;
+        }
+        textarea::placeholder {
+            color: #f8bbd0;
+        }
+        .action-button {
+            background-color: #ff8a80;
+            color: #1a1a1a;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background-color: #f8bbd0;
+        }
+        .action-button:disabled {
+            background-color: #4d4d4d;
+            cursor: not-allowed;
+        }
+        #saved-message-display, #poem-display {
+            background-color: rgba(255, 138, 128, 0.1);
+            border-left: 4px solid #ff8a80;
+            padding: 1rem;
+            border-radius: 8px;
+            font-style: italic;
+            white-space: pre-wrap; /* Mantém as quebras de linha */
+            text-align: left;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff8a80;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl mx-auto text-center space-y-8 pb-16">
+
+        <!-- Spotify Player -->
+        <div>
+            <h2 class="font-dancing text-4xl mb-4 romantic-red">A Nossa Trilha Sonora</h2>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3bpNcH1SCEMn6zuynZGY5e?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+
+        <!-- Nomes -->
+        <h1 class="font-dancing text-6xl md:text-7xl romantic-red">Mariana & Nycolas</h1>
+
+        <!-- Slideshow de Fotos -->
+        <div class="slideshow-container">
+            <div class="slide"><img src="https://images.pexels.com/photos/1024984/pexels-photo-1024984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Foto romântica de um casal 1"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/3171815/pexels-photo-3171815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Foto romântica de um casal 2"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/1796705/pexels-photo-1796705.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Foto romântica de um casal 3"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Foto romântica de um casal 4"></div>
+            <div class="slide"><img src="https://images.pexels.com/photos/3779791/pexels-photo-3779791.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Foto romântica de um casal 5"></div>
+        </div>
+        <div class="dots-container"></div>
+
+        <!-- Cronómetro do Amor -->
+        <div>
+            <h2 class="font-dancing text-4xl mb-4 romantic-red">O Nosso Tempo Juntos</h2>
+            <div id="timer" class="timer-box grid grid-cols-3 sm:grid-cols-7 gap-2 md:gap-4 text-white"></div>
+        </div>
+
+        <!-- Fase da Lua -->
+        <div class="container-box">
+            <h3 class="font-dancing text-3xl mb-3 romantic-red">A Lua do Nosso Dia</h3>
+            <p class="text-lg">No dia 14 de Maio de 2025, a lua estará assim:</p>
+            <div id="moon-phase" class="text-6xl mt-4"></div>
+            <p id="moon-phase-name" class="mt-2 text-xl"></p>
+        </div>
+
+        <!-- Jornada Cósmica -->
+        <div class="container-box space-y-4">
+            <h3 class="font-dancing text-3xl mb-3 romantic-red">A Nossa Jornada Cósmica</h3>
+            <p>Desde o nosso dia, já percorremos <span id="earth-distance" class="stat-number">0</span> km ao redor do Sol.</p>
+            <p>Testemunhámos <span id="sunrises" class="stat-number">0</span> amanheceres juntos.</p>
+            <p>E vimos <span id="full-moons" class="stat-number">0</span> luas cheias iluminarem o nosso amor.</p>
+        </div>
+
+        <!-- Inspiração Poética (Gemini API) -->
+        <div class="container-box">
+            <h3 class="font-dancing text-3xl mb-3 romantic-red">Inspiração Poética</h3>
+            <p class="mb-4">Clique no botão abaixo para que a nossa história inspire um poema de amor único, criado especialmente para nós.</p>
+            <button id="generate-poem-btn" class="action-button font-bold py-2 px-6 rounded-lg">✨ Gerar Poema de Amor</button>
+            <div id="poem-loader" class="loader" style="display: none;"></div>
+            <div id="poem-display" class="mt-4" style="display: none;"></div>
+        </div>
+
+        <!-- Caixa de Mensagem -->
+        <div class="container-box">
+            <h3 class="font-dancing text-3xl mb-3 romantic-red">Uma Mensagem para a Eternidade</h3>
+            <div id="message-input-container">
+                <textarea id="message-box" class="w-full p-3 rounded-lg h-28" placeholder="Escreva algo que sentiu ao ver esta surpresa..."></textarea>
+                <button id="save-message-btn" class="action-button font-bold py-2 px-6 rounded-lg mt-4">Guardar no Coração</button>
+            </div>
+            <div id="saved-message-display" style="display: none;"></div>
+            <p id="confirmation-message" class="text-lg romantic-red mt-4" style="display: none;">A sua mensagem foi guardada para sempre! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURAÇÕES GERAIS ---
+        const startDate = new Date(2025, 4, 14, 0, 0, 0); 
+        const EARTH_SPEED_KPS = 29.78;
+        const LUNAR_CYCLE_DAYS = 29.53;
+        const MESSAGE_STORAGE_KEY = 'marianaSavedMessage';
+
+        // --- LÓGICA DO SLIDESHOW ---
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".slide");
+        const dotsContainer = document.querySelector(".dots-container");
+        slides.forEach((_, i) => {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            dot.setAttribute("data-index", i);
+            dot.addEventListener("click", () => showSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+        const dots = document.querySelectorAll(".dot");
+        function showSlide(index) {
+            slides.forEach(slide => slide.style.display = "none");
+            dots.forEach(dot => dot.classList.remove("active-dot"));
+            slideIndex = (index + slides.length) % slides.length;
+            slides[slideIndex].style.display = "block";
+            dots[slideIndex].classList.add("active-dot");
+        }
+        function autoSlide() { slideIndex++; showSlide(slideIndex); }
+        showSlide(slideIndex);
+        setInterval(autoSlide, 5000);
+
+        // --- LÓGICA DO CRONÓMETRO E CÁLCULOS CÓSMICOS ---
+        const timerElement = document.getElementById('timer');
+        const earthDistanceEl = document.getElementById('earth-distance');
+        const sunrisesEl = document.getElementById('sunrises');
+        const fullMoonsEl = document.getElementById('full-moons');
+        function getDaysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
+        function updateAllCounters() {
+            const now = new Date();
+            const distance = now.getTime() - startDate.getTime();
+            if (distance < 0) {
+                timerElement.innerHTML = `<div class="col-span-full text-2xl font-dancing romantic-red">A contar os segundos para o nosso começo... ❤️</div>`;
+                earthDistanceEl.textContent = "0";
+                sunrisesEl.textContent = "0";
+                fullMoonsEl.textContent = "0";
+                return;
+            }
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+            let days = now.getDate() - startDate.getDate();
+            if (days < 0) { months--; days += getDaysInMonth(now.getFullYear(), now.getMonth() - 1); }
+            if (months < 0) { years--; months += 12; }
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const milliseconds = (distance % 1000).toString().padStart(3, '0');
+            timerElement.innerHTML = `<div><span class="text-3xl md:text-4xl font-bold">${years}</span><div class="timer-unit">Anos</div></div><div><span class="text-3xl md:text-4xl font-bold">${months}</span><div class="timer-unit">Meses</div></div><div><span class="text-3xl md:text-4xl font-bold">${days}</span><div class="timer-unit">Dias</div></div><div><span class="text-3xl md:text-4xl font-bold">${hours.toString().padStart(2, '0')}</span><div class="timer-unit">Horas</div></div><div><span class="text-3xl md:text-4xl font-bold">${minutes.toString().padStart(2, '0')}</span><div class="timer-unit">Minutos</div></div><div><span class="text-3xl md:text-4xl font-bold">${seconds.toString().padStart(2, '0')}</span><div class="timer-unit">Segundos</div></div><div class="col-span-3 sm:col-span-1"><span class="text-3xl md:text-4xl font-bold">${milliseconds}</span><div class="timer-unit">Milisegundos</div></div>`;
+            const totalDaysPassed = distance / (1000 * 60 * 60 * 24);
+            const totalSecondsPassed = distance / 1000;
+            const earthDistance = totalSecondsPassed * EARTH_SPEED_KPS;
+            const sunrisesCount = Math.floor(totalDaysPassed);
+            const fullMoonsCount = Math.floor(totalDaysPassed / LUNAR_CYCLE_DAYS);
+            earthDistanceEl.textContent = earthDistance.toLocaleString('pt-BR', { maximumFractionDigits: 0 });
+            sunrisesEl.textContent = sunrisesCount;
+            fullMoonsEl.textContent = fullMoonsCount;
+        }
+        setInterval(updateAllCounters, 47);
+        updateAllCounters();
+
+        // --- LÓGICA DA FASE DA LUA ---
+        function getMoonPhase(year, month, day) {
+            let c = 0, e = 0, jd = 0, b = 0;
+            if (month < 3) { year--; month += 12; }
+            month++; c = 365.25 * year; e = 30.6 * month; jd = c + e + day - 694039.09;
+            jd /= 29.5305882; b = parseInt(jd); jd -= b; b = Math.round(jd * 8);
+            if (b >= 8) b = 0;
+            const phases = [{ emoji: "🌑", name: "Lua Nova" }, { emoji: "🌒", name: "Lua Crescente" }, { emoji: "🌓", name: "Quarto Crescente" }, { emoji: "🌔", name: "Gibosa Crescente" }, { emoji: "🌕", name: "Lua Cheia" }, { emoji: "🌖", name: "Gibosa Minguante" }, { emoji: "🌗", name: "Quarto Minguante" }, { emoji: "🌘", name: "Lua Minguante" }];
+            return phases[b];
+        }
+        const moonPhaseData = getMoonPhase(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
+        document.getElementById('moon-phase').textContent = moonPhaseData.emoji;
+        document.getElementById('moon-phase-name').textContent = moonPhaseData.name;
+
+        // --- LÓGICA DA CAIXA DE MENSAGEM ---
+        const saveBtn = document.getElementById('save-message-btn');
+        const messageBox = document.getElementById('message-box');
+        const confirmationMsg = document.getElementById('confirmation-message');
+        const messageInputContainer = document.getElementById('message-input-container');
+        const savedMessageDisplay = document.getElementById('saved-message-display');
+
+        function displaySavedMessage() {
+            const savedMessage = localStorage.getItem(MESSAGE_STORAGE_KEY);
+            if (savedMessage) {
+                savedMessageDisplay.textContent = savedMessage;
+                savedMessageDisplay.style.display = 'block';
+                messageInputContainer.style.display = 'none';
+            }
+        }
+
+        saveBtn.addEventListener('click', () => {
+            const message = messageBox.value.trim();
+            if (message !== '') {
+                localStorage.setItem(MESSAGE_STORAGE_KEY, message);
+                confirmationMsg.style.display = 'block';
+                displaySavedMessage();
+                setTimeout(() => { confirmationMsg.style.display = 'none'; }, 5000);
+            }
+        });
+
+        displaySavedMessage();
+
+        // --- LÓGICA DA API GEMINI ---
+        const generatePoemBtn = document.getElementById('generate-poem-btn');
+        const poemLoader = document.getElementById('poem-loader');
+        const poemDisplay = document.getElementById('poem-display');
+
+        generatePoemBtn.addEventListener('click', async () => {
+            generatePoemBtn.disabled = true;
+            poemLoader.style.display = 'block';
+            poemDisplay.style.display = 'none';
+
+            const timeTogether = document.getElementById('timer').textContent.replace(/\s+/g, ' ').trim();
+            const prompt = `Crie um poema de amor curto e romântico para um casal chamado Mariana e Nycolas. O relacionamento deles começou em 14 de maio de 2025. Eles estão juntos há ${timeTogether}. Mencione a jornada deles, o amor que cresce a cada segundo e o futuro brilhante que os espera. O poema deve ser emotivo e tocante, em português do Brasil.`;
+            
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const poemText = result.candidates[0].content.parts[0].text;
+                    poemDisplay.textContent = poemText;
+                    poemDisplay.style.display = 'block';
+                } else {
+                    poemDisplay.textContent = 'Não foi possível gerar o poema neste momento. Por favor, tente novamente mais tarde.';
+                    poemDisplay.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                poemDisplay.textContent = 'Ocorreu um erro ao conectar com a inspiração. Tente novamente.';
+                poemDisplay.style.display = 'block';
+            } finally {
+                poemLoader.style.display = 'none';
+                generatePoemBtn.disabled = false;
+            }
+        });
+
+    </script>
+</body>
+</html>
