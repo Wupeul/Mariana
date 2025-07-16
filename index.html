@@ -8,7 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Biblioteca para animação de rolagem -->
+    <script src="https://unpkg.com/scrollreveal"></script>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #1a1a1a;
@@ -28,20 +33,30 @@
         }
         .slideshow-container {
             position: relative;
-            max-width: 600px;
+            max-width: 360px; /* Reduzido para um melhor visual em retrato */
             margin: auto;
             border-radius: 16px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border: 2px solid #ff8a80;
             background-color: #000;
+            cursor: grab;
+            aspect-ratio: 9 / 16; /* Proporção 9:16 adicionada */
         }
-        .slide { display: none; }
+        .slideshow-container:active {
+            cursor: grabbing;
+        }
+        .slide { 
+            display: none; 
+            transition: opacity 0.5s ease-in-out;
+            height: 100%; /* Garante que o slide ocupe todo o espaço */
+        }
         .slide .slide-media { /* Classe comum para img e video */
             width: 100%;
-            height: 400px;
+            height: 100%; /* Ajustado para preencher o container */
             object-fit: cover;
             vertical-align: middle;
+            user-select: none; /* Impede a seleção de imagem/vídeo ao arrastar */
         }
         .dots-container { text-align: center; padding: 10px; margin-top: 8px; }
         .dot { cursor: pointer; height: 12px; width: 12px; margin: 0 4px; background-color: #4d4d4d; border-radius: 50%; display: inline-block; transition: background-color 0.6s ease; }
@@ -95,57 +110,58 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        /* Classe para elementos a serem animados pela rolagem */
+        .reveal {
+            visibility: hidden;
+        }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-3xl mx-auto text-center space-y-8 pb-16">
 
         <!-- Spotify Player -->
-        <div>
+        <div class="reveal">
             <h2 class="font-dancing text-4xl mb-4 romantic-red">A Nossa Trilha Sonora</h2>
             <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3bpNcH1SCEMn6zuynZGY5e?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
         <!-- Nomes -->
-        <h1 class="font-dancing text-6xl md:text-7xl romantic-red">Mariana & Nycolas</h1>
+        <h1 class="font-dancing text-6xl md:text-7xl romantic-red reveal">Mariana & Nycolas</h1>
 
         <!-- Slideshow de Vídeos e Fotos -->
-        <div class="slideshow-container">
-            <!-- INSTRUÇÃO: Substitua os links abaixo pelos seus vídeos. Use links diretos para arquivos .mp4 -->
+        <div class="slideshow-container reveal">
             <div class="slide">
-                <video src="assets/mari7.mp4" class="slide-media" muted loop playsinline></video>
+                <video src="assets/mari7.mp4" class="slide-media" muted loop playsinline draggable="false"></video>
             </div>
             <div class="slide">
-                <video src="assets/mari6.mp4" class="slide-media" muted loop playsinline></video>
+                <video src="assets/mari6.mp4" class="slide-media" muted loop playsinline draggable="false"></video>
             </div>
             <div class="slide">
-                <video src="assets/mari5.mp4" class="slide-media" muted loop playsinline></video>
-            </div>
-
-            <!-- INSTRUÇÃO: Substitua os links abaixo pelas suas fotos -->
-            <div class="slide">
-                <img src="assets/mari1.jpg" alt="Foto romântica de um casal 1" class="slide-media">
+                <video src="assets/mari5.mp4" class="slide-media" muted loop playsinline draggable="false"></video>
             </div>
             <div class="slide">
-                <img src="assets/mari2.jpg" alt="Foto romântica de um casal 2" class="slide-media">
+                <img src="assets/mari1.jpg" alt="Foto romântica de um casal 1" class="slide-media" draggable="false">
             </div>
             <div class="slide">
-                <img src="assets/mari3.jpg" alt="Foto romântica de um casal 3" class="slide-media">
+                <img src="assets/mari2.jpg" alt="Foto romântica de um casal 2" class="slide-media" draggable="false">
             </div>
             <div class="slide">
-                <img src="assets/mari4.jpg" alt="Foto romântica de um casal 4" class="slide-media">
+                <img src="assets/mari3.jpg" alt="Foto romântica de um casal 3" class="slide-media" draggable="false">
+            </div>
+            <div class="slide">
+                <img src="assets/mari4.jpg" alt="Foto romântica de um casal 4" class="slide-media" draggable="false">
             </div>
         </div>
-        <div class="dots-container"></div>
+        <div class="dots-container reveal"></div>
 
         <!-- Cronómetro do Amor -->
-        <div>
+        <div class="reveal">
             <h2 class="font-dancing text-4xl mb-4 romantic-red">O Nosso Tempo Juntos</h2>
             <div id="timer" class="timer-box grid grid-cols-3 sm:grid-cols-7 gap-2 md:gap-4 text-white"></div>
         </div>
 
         <!-- Fase da Lua -->
-        <div class="container-box">
+        <div class="container-box reveal">
             <h3 class="font-dancing text-3xl mb-3 romantic-red">A Lua do Nosso Dia</h3>
             <p class="text-lg">No dia 14 de Maio de 2025, a lua estará assim:</p>
             <div id="moon-phase" class="text-6xl mt-4"></div>
@@ -153,7 +169,7 @@
         </div>
 
         <!-- Jornada Cósmica -->
-        <div class="container-box space-y-4">
+        <div class="container-box reveal space-y-4">
             <h3 class="font-dancing text-3xl mb-3 romantic-red">A Nossa Jornada Cósmica</h3>
             <p>Desde o nosso dia, já percorremos <span id="earth-distance" class="stat-number">0</span> km ao redor do Sol.</p>
             <p>Testemunhámos <span id="sunrises" class="stat-number">0</span> amanheceres juntos.</p>
@@ -161,7 +177,7 @@
         </div>
 
         <!-- Inspiração Poética (Gemini API) -->
-        <div class="container-box">
+        <div class="container-box reveal">
             <h3 class="font-dancing text-3xl mb-3 romantic-red">Inspiração Poética</h3>
             <p class="mb-4">Clique no botão abaixo para que a nossa história inspire um poema de amor único, criado especialmente para nós.</p>
             <button id="generate-poem-btn" class="action-button font-bold py-2 px-6 rounded-lg">✨ Gerar Poema de Amor</button>
@@ -170,7 +186,7 @@
         </div>
 
         <!-- Caixa de Mensagem -->
-        <div class="container-box">
+        <div class="container-box reveal">
             <h3 class="font-dancing text-3xl mb-3 romantic-red">Uma Mensagem para a Eternidade</h3>
             <div id="message-input-container">
                 <textarea id="message-box" class="w-full p-3 rounded-lg h-28" placeholder="Escreva algo que sentiu ao ver esta surpresa..."></textarea>
@@ -190,27 +206,29 @@
 
         // --- LÓGICA DO SLIDESHOW ---
         let slideIndex = 0;
+        const slideshowContainer = document.querySelector(".slideshow-container");
         const slides = document.querySelectorAll(".slide");
         const dotsContainer = document.querySelector(".dots-container");
-        
+        let autoSlideInterval;
+
         slides.forEach((_, i) => {
             const dot = document.createElement("span");
             dot.classList.add("dot");
             dot.setAttribute("data-index", i);
-            dot.addEventListener("click", () => showSlide(i));
+            dot.addEventListener("click", () => {
+                showSlide(i);
+                resetAutoSlide();
+            });
             dotsContainer.appendChild(dot);
         });
         
         const dots = document.querySelectorAll(".dot");
 
         function showSlide(index) {
-            // Pausa todos os vídeos e esconde todos os slides
             slides.forEach(slide => {
                 slide.style.display = "none";
                 const video = slide.querySelector('video');
-                if (video) {
-                    video.pause();
-                }
+                if (video) video.pause();
             });
 
             dots.forEach(dot => dot.classList.remove("active-dot"));
@@ -221,22 +239,47 @@
             activeSlide.style.display = "block";
             dots[slideIndex].classList.add("active-dot");
 
-            // Toca o vídeo se o slide ativo for um vídeo
             const activeVideo = activeSlide.querySelector('video');
             if (activeVideo) {
-                activeVideo.play().catch(error => {
-                    console.log("A reprodução automática foi impedida pelo navegador.", error);
-                });
+                activeVideo.play().catch(error => console.log("Autoplay impedido.", error));
             }
         }
 
-        function autoSlide() { 
-            slideIndex++; 
-            showSlide(slideIndex); 
+        function nextSlide() { showSlide(slideIndex + 1); }
+        function prevSlide() { showSlide(slideIndex - 1); }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = setInterval(nextSlide, 5000);
         }
-        
-        showSlide(slideIndex);
-        setInterval(autoSlide, 5000);
+
+        showSlide(0); // Inicia no primeiro slide
+        resetAutoSlide(); // Inicia o timer automático
+
+        // --- LÓGICA DE DESLIZE (SWIPE) ---
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slideshowContainer.addEventListener('touchstart', (event) => {
+            touchStartX = event.changedTouches[0].screenX;
+        }, { passive: true });
+
+        slideshowContainer.addEventListener('touchend', (event) => {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // Distância mínima para considerar um deslize
+            if (touchEndX < touchStartX - swipeThreshold) {
+                nextSlide();
+                resetAutoSlide();
+            }
+            if (touchEndX > touchStartX + swipeThreshold) {
+                prevSlide();
+                resetAutoSlide();
+            }
+        }
 
         // --- LÓGICA DO CRONÓMETRO E CÁLCULOS CÓSMICOS ---
         const timerElement = document.getElementById('timer');
@@ -278,12 +321,11 @@
 
         // --- LÓGICA DA FASE DA LUA ---
         function getMoonPhase(year, month, day) {
-            let c = 0, e = 0, jd = 0, b = 0;
-            if (month < 3) { year--; month += 12; }
-            month++; c = 365.25 * year; e = 30.6 * month; jd = c + e + day - 694039.09;
-            jd /= 29.5305882; b = parseInt(jd); jd -= b; b = Math.round(jd * 8);
-            if (b >= 8) b = 0;
-            const phases = [{ emoji: "🌑", name: "Lua Nova" }, { emoji: "🌒", name: "Lua Crescente" }, { emoji: "🌓", name: "Quarto Crescente" }, { emoji: "🌔", name: "Gibosa Crescente" }, { emoji: "🌕", name: "Lua Cheia" }, { emoji: "🌖", name: "Gibosa Minguante" }, { emoji: "🌗", name: "Quarto Minguante" }, { emoji: "🌘", name: "Lua Minguante" }];
+            let c=0,e=0,jd=0,b=0;
+            if(month<3){year--;month+=12;}
+            month++;c=365.25*year;e=30.6*month;jd=c+e+day-694039.09;jd/=29.5305882;b=parseInt(jd);jd-=b;b=Math.round(jd*8);
+            if(b>=8)b=0;
+            const phases=[{emoji:"🌑",name:"Lua Nova"},{emoji:"🌒",name:"Lua Crescente"},{emoji:"🌓",name:"Quarto Crescente"},{emoji:"🌔",name:"Gibosa Crescente"},{emoji:"🌕",name:"Lua Cheia"},{emoji:"🌖",name:"Gibosa Minguante"},{emoji:"🌗",name:"Quarto Minguante"},{emoji:"🌘",name:"Lua Minguante"}];
             return phases[b];
         }
         const moonPhaseData = getMoonPhase(startDate.getFullYear(), startDate.getMonth() + 1, startDate.getDate());
@@ -296,75 +338,25 @@
         const confirmationMsg = document.getElementById('confirmation-message');
         const messageInputContainer = document.getElementById('message-input-container');
         const savedMessageDisplay = document.getElementById('saved-message-display');
-
-        function displaySavedMessage() {
-            const savedMessage = localStorage.getItem(MESSAGE_STORAGE_KEY);
-            if (savedMessage) {
-                savedMessageDisplay.textContent = savedMessage;
-                savedMessageDisplay.style.display = 'block';
-                messageInputContainer.style.display = 'none';
-            }
-        }
-
-        saveBtn.addEventListener('click', () => {
-            const message = messageBox.value.trim();
-            if (message !== '') {
-                localStorage.setItem(MESSAGE_STORAGE_KEY, message);
-                confirmationMsg.style.display = 'block';
-                displaySavedMessage();
-                setTimeout(() => { confirmationMsg.style.display = 'none'; }, 5000);
-            }
-        });
-
+        function displaySavedMessage(){const savedMessage=localStorage.getItem(MESSAGE_STORAGE_KEY);if(savedMessage){savedMessageDisplay.textContent=savedMessage;savedMessageDisplay.style.display='block';messageInputContainer.style.display='none';}}
+        saveBtn.addEventListener('click',()=>{const message=messageBox.value.trim();if(message!==''){localStorage.setItem(MESSAGE_STORAGE_KEY,message);confirmationMsg.style.display='block';displaySavedMessage();setTimeout(()=>{confirmationMsg.style.display='none';},5000);}});
         displaySavedMessage();
 
         // --- LÓGICA DA API GEMINI ---
         const generatePoemBtn = document.getElementById('generate-poem-btn');
         const poemLoader = document.getElementById('poem-loader');
         const poemDisplay = document.getElementById('poem-display');
+        generatePoemBtn.addEventListener('click',async()=>{generatePoemBtn.disabled=true;poemLoader.style.display='block';poemDisplay.style.display='none';const timeTogether=document.getElementById('timer').textContent.replace(/\s+/g,' ').trim();const prompt=`Crie um poema de amor curto e romântico para um casal chamado Mariana e Nycolas. O relacionamento deles começou em 14 de maio de 2025. Eles estão juntos há ${timeTogether}. Mencione a jornada deles, o amor que cresce a cada segundo e o futuro brilhante que os espera. O poema deve ser emotivo e tocante, em português do Brasil.`;let chatHistory=[];chatHistory.push({role:"user",parts:[{text:prompt}]});const payload={contents:chatHistory};const apiKey="";const apiUrl=`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;try{const response=await fetch(apiUrl,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(result.candidates&&result.candidates.length>0&&result.candidates[0].content&&result.candidates[0].content.parts&&result.candidates[0].content.parts.length>0){const poemText=result.candidates[0].content.parts[0].text;poemDisplay.textContent=poemText;poemDisplay.style.display='block';}else{poemDisplay.textContent='Não foi possível gerar o poema neste momento. Por favor, tente novamente mais tarde.';poemDisplay.style.display='block';}}catch(error){console.error("Error calling Gemini API:",error);poemDisplay.textContent='Ocorreu um erro ao conectar com a inspiração. Tente novamente.';poemDisplay.style.display='block';}finally{poemLoader.style.display='none';generatePoemBtn.disabled=false;}});
 
-        generatePoemBtn.addEventListener('click', async () => {
-            generatePoemBtn.disabled = true;
-            poemLoader.style.display = 'block';
-            poemDisplay.style.display = 'none';
-
-            const timeTogether = document.getElementById('timer').textContent.replace(/\s+/g, ' ').trim();
-            const prompt = `Crie um poema de amor curto e romântico para um casal chamado Mariana e Nycolas. O relacionamento deles começou em 14 de maio de 2025. Eles estão juntos há ${timeTogether}. Mencione a jornada deles, o amor que cresce a cada segundo e o futuro brilhante que os espera. O poema deve ser emotivo e tocante, em português do Brasil.`;
-            
-            let chatHistory = [];
-            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-            const payload = { contents: chatHistory };
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                const result = await response.json();
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const poemText = result.candidates[0].content.parts[0].text;
-                    poemDisplay.textContent = poemText;
-                    poemDisplay.style.display = 'block';
-                } else {
-                    poemDisplay.textContent = 'Não foi possível gerar o poema neste momento. Por favor, tente novamente mais tarde.';
-                    poemDisplay.style.display = 'block';
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                poemDisplay.textContent = 'Ocorreu um erro ao conectar com a inspiração. Tente novamente.';
-                poemDisplay.style.display = 'block';
-            } finally {
-                poemLoader.style.display = 'none';
-                generatePoemBtn.disabled = false;
-            }
+        // --- LÓGICA DA ANIMAÇÃO DE ROLAGEM ---
+        ScrollReveal().reveal('.reveal', {
+            delay: 200,
+            distance: '50px',
+            origin: 'bottom',
+            opacity: 0,
+            easing: 'ease-in-out',
+            interval: 150
         });
-
     </script>
 </body>
 </html>
